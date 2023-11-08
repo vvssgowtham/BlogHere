@@ -14,19 +14,30 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
+import { useState } from 'react';
+import axios from 'axios';
+
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+
+    const[formData,setFormData] = useState({email : '',password : ''});
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+      
+        
+          const response = await axios.post('http://localhost:5000/signupform', formData)
+          .then(response => {
+            alert("SignedUp Successfully"); 
+            setFormData({email: '', password: ''});
+          })
+        .catch (e =>{
+          alert('Mail already registered');
+        }
+      )};
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -56,6 +67,8 @@ function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={formData.email}
+                  onChange={(e)=>setFormData({...formData,email:e.target.value})}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -67,6 +80,8 @@ function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={formData.password}
+                  onChange={(e)=>setFormData({...formData,password:e.target.value})}
                 />
               </Grid>
               <Grid item xs={12}>
