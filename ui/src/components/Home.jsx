@@ -1,8 +1,8 @@
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <section>
@@ -44,10 +44,10 @@ function Home() {
             </li>
           </ul>
           <div className="col-md-3 text-end">
-            <button type="button" className="btn btn-outline-primary me-2" onClick={()=>history("/login")}>
+            <button type="button" className="btn btn-outline-primary me-2" onClick={()=>navigate("/login")}>
               Login
             </button>
-            <button type="button" className="btn btn-outline-primary me-2">
+            <button type="button" className="btn btn-outline-primary me-2" onClick={()=>navigate("/signup")}>
               Sign-up
             </button>
           </div>
