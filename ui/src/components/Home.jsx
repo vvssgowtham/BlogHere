@@ -1,7 +1,7 @@
 function Home() {
   return (
-    <section className="text-gray-400 bg-gray-900 body-font">
-      <div className="container">
+    <section>
+      <div className="container mx-auto px-100">
         <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
           <div className="col-md-3 mb-2 mb-md-0">
             <a
@@ -10,8 +10,8 @@ function Home() {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width={30}
-                height={30}
+                width={32}
+                height={32}
                 fill="currentColor"
                 className="bi bi-camera"
                 viewBox="0 0 16 16"
@@ -28,7 +28,12 @@ function Home() {
               </a>
             </li>
             <li className="nav-item">
-              <a href="#footer" className="nav-link">
+              <a href="#" className="nav-link">
+                Features
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#" className="nav-link">
                 About
               </a>
             </li>
@@ -37,52 +42,49 @@ function Home() {
             <button type="button" className="btn btn-outline-primary me-2">
               Login
             </button>
-            <button type="button" className="btn btn-primary">
+            <button type="button" className="btn btn-outline-primary me-2">
               Sign-up
             </button>
           </div>
         </header>
-      </div>
-      <div className="container col-xxl-8 px-4 py-5">
         <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
-          <div className="col-10 col-sm-8 col-lg-6">
-            <img
-              src="Blog.png"
-              className="d-block mx-lg-auto img-fluid"
-              alt="Blog Image"
-              width={800}
-              height={500}
-              loading="lazy"
-            />
-          </div>
           <div className="col-lg-6">
             <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">
               Storyteller's Corner
             </h1>
             <p className="lead">
               "Where Stories Unfold, Ideas Flourish, and Imagination Reigns
-              Supreme".... Experience a journey through your blogs, where
-              stories weave intricate tales, ideas flourish, and imagination
-              paints a masterpiece of possibility with every post.
+              Supreme"...<br/>Experience a journey through your blogs, where stories
+              weave intricate tales, ideas flourish, and imagination paints a
+              masterpiece of possibility with every post.
             </p>
+            <br />
             <div className="d-grid gap-2 d-md-flex justify-content-md-start">
               <button
                 type="button"
-                className="btn btn-primary btn-lg px-4 me-md-2"
+                className="btn btn-outline-primary btn-lg px-4 me-md-2"
               >
-                View Blogs
+                Primary
               </button>
               <button
                 type="button"
                 className="btn btn-outline-secondary btn-lg px-4"
               >
-                Create Blog
+                Default
               </button>
             </div>
           </div>
+          <div className="col-10 col-sm-8 col-lg-6">
+            <img
+              src="Blog.png"
+              className="d-block mx-lg-auto img-fluid"
+              alt="Bootstrap Themes"
+              width={700}
+              height={500}
+              loading="lazy"
+            />
+          </div>
         </div>
-      </div>
-      <div id="footer" className="container">
         <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
           <div className="col-md-4 d-flex align-items-center">
             <a
