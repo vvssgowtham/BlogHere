@@ -1,4 +1,9 @@
+import { Navigate, useNavigate } from 'react-router-dom';
+
 function Home() {
+
+  const history = useNavigate();
+
   return (
     <section>
       <div className="container mx-auto px-100">
@@ -33,13 +38,13 @@ function Home() {
               </a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">
+              <a href="#about" className="nav-link">
                 About
               </a>
             </li>
           </ul>
           <div className="col-md-3 text-end">
-            <button type="button" className="btn btn-outline-primary me-2">
+            <button type="button" className="btn btn-outline-primary me-2" onClick={()=>history("/login")}>
               Login
             </button>
             <button type="button" className="btn btn-outline-primary me-2">
@@ -85,7 +90,7 @@ function Home() {
             />
           </div>
         </div>
-        <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <footer id="about" className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
           <div className="col-md-4 d-flex align-items-center">
             <a
               href="/"
