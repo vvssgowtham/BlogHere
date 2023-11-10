@@ -29,7 +29,7 @@ function SignUp() {
         event.preventDefault();
       
         
-          const response = await axios.post('http://localhost:5000/signupform', formData)
+          const response = await axios.post('http://localhost:5000/api/signup', formData)
           .then(response => {
             alert("SignedUp Successfully"); 
             setFormData({email: '', password: ''});
