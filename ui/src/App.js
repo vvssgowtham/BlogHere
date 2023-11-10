@@ -1,9 +1,14 @@
-import React from "react";
+import React,{/*useState,createContext*/} from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Logins from "./components/Logins";
 import SignUp from "./components/Signup";
-import CreateBlog from "./components/CreateBlog";
+import MyBlogs from "./components/MyBlogs";
+
+
+//using useState for storing token in the variable and ContextAPI 
+// export const store = createContext();
+
 
 function App() {
   return (
@@ -12,7 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Logins />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path='/createblog' element={<CreateBlog />} />
+        <Route path="/myblogs" element={<MyBlogs />} />
       </Routes>
     </BrowserRouter>
   );

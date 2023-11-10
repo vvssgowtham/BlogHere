@@ -27,9 +27,7 @@ function SignUp() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-      
-        
-          const response = await axios.post('http://localhost:5000/api/signup', formData)
+        const response = await axios.post('http://localhost:5000/signup', formData)
           .then(response => {
             alert("SignedUp Successfully"); 
             setFormData({email: '', password: ''});

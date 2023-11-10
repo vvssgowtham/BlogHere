@@ -27,20 +27,10 @@ function Logins() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await axios.post(
-      "http://localhost:5000/api/login",
-      formData
-    );
-
-    const data = await response.json();
-
-    if (data.user) {
-      localStorage.setItem("token", data.user);
-      alert("Login successful");
-      navigate("/createblog");
-    } else {
-      alert("Please check your username and password");
-    }
+    axios.post(
+      "http://localhost:5000/login",formData).then(
+        res => alert('got token')
+      )
   };
 
   return (
