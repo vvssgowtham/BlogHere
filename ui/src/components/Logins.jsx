@@ -14,7 +14,8 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState,useContext } from "react";
+import { store } from "../App";
 import axios from "axios";
 
 const defaultTheme = createTheme();
@@ -22,6 +23,7 @@ const defaultTheme = createTheme();
 function Logins() {
   const navigate = useNavigate();
 
+  const [token,setToken] = useContext(store);
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleSubmit = async (event) => {
@@ -29,10 +31,12 @@ function Logins() {
 
     axios.post(
       "http://localhost:5000/login",formData).then(
-        res => alert('got token')
+        res => setToken(res.data.token)//here token is the name given in backend that comes as response 
       )
   };
-
+  if(token){
+    return navigate('/myblogs')
+  }
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
