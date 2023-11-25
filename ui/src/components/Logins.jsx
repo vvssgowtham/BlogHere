@@ -29,10 +29,17 @@ function Logins() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    axios.post(
+    const response = axios.post(
       "http://localhost:5000/login",formData).then(
         res => setToken(res.data.token)//here token is the name given in backend that comes as response 
       )
+      .then(response => {
+        alert("Login Successfull"); 
+        setFormData({email: '', password: ''});
+      })
+    .catch (e =>{
+      alert('Invalid credentials');
+    });
   };
   if(token){
     return navigate('/myblogs')

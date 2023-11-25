@@ -19,7 +19,7 @@ function MyBlogs(){
     //here again we are checking if the token is invalid or null because if it is null they shouldn't access this page
     
     if(!token){
-        return navigate('login');
+        window.location.href='/login';
     }
     return(
         <>

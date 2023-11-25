@@ -28,17 +28,17 @@ function Home() {
           </div>
           <ul className="nav nav-pills">
             <li className="nav-item">
-              <a href="#" className="nav-link active" aria-current="page">
+              <a href="#" className="btn btn-outline-primary me-2" aria-current="page">
                 Home
               </a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">
-                Features
+              <a href="/allblogs" className="btn btn-outline-primary me-2">
+                AllBlogs
               </a>
             </li>
             <li className="nav-item">
-              <a href="#about" className="nav-link">
+              <a href="#about" className="btn btn-outline-primary me-2">
                 About
               </a>
             </li>

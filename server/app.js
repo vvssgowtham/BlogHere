@@ -4,7 +4,7 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const Registeruser = require("./model");
+const { Registeruser, Blogs } = require("./model");
 const middleware = require('./middleware');
 
 app.use(cors({origin:'*'}));//origin means from any kind of domain if we want to access the router we need this
@@ -16,6 +16,19 @@ app.use(bodyParser.json());
 mongoose.connect("mongodb://127.0.0.1:27017/blogusers", {
   useNewUrlParser: true,
 });
+
+app.post("/createblog",middleware, async (req,res) => {
+  //using middleware we are getting/decoding the user id
+  const {title,description,content} = req.body;
+  const userId = req.user.id;
+  const blog = new Blogs({title,description,content,user : userId});//this is for creating new object for every new blog
+  try{
+    await blog.save();
+    res.status(201).json({message: "Blog created successfully"});
+  }catch(err){
+    res.status(400).json({error: "Blog creation failed"});
+  }
+})
 
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;

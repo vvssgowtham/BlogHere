@@ -1,15 +1,40 @@
 const mongoose = require('mongoose');
 
-const Registeruser = new mongoose.Schema({
-    email : {
-        type : String,
-        require : true,
-        unique : true,
+const RegisteruserSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true,
     },
-    password : {
-        type : String,
-        require : true,
+    password: {
+        type: String,
+        required: true,
     }
-})
+});
 
-module.exports = mongoose.model('Registeruser',Registeruser);//first argument is modelname and second is schema name
+const BlogsSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    content: {
+        type: String,
+        required: true,
+    }, 
+    //this idea obtained with the help of chatgpt for identifying the user who created the blog
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Registeruser', // Reference to the Registeruser model
+        required: true,
+    },
+});
+
+const Registeruser = mongoose.model('Registeruser', RegisteruserSchema);
+const Blogs = mongoose.model('Blogs', BlogsSchema);
+
+// Export the models as properties of an object
+module.exports = { Registeruser, Blogs };
