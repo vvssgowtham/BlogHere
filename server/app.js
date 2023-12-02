@@ -15,20 +15,37 @@ app.use(bodyParser.json());
 
 mongoose.connect("mongodb://127.0.0.1:27017/blogusers", {
   useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
-app.post("/createblog",middleware, async (req,res) => {
-  //using middleware we are getting/decoding the user id
-  const {title,description,content} = req.body;
-  const userId = req.user.id;
-  const blog = new Blogs({title,description,content,user : userId});//this is for creating new object for every new blog
-  try{
+app.post("/createblog", middleware, async (req, res) => {
+  try {
+    // Extracting user id using middleware
+    const { imageURL, title, description, blogcontent } = req.body;
+    const userId = req.user.id;
+
+    // Creating a new blog object
+    const blog = new Blogs({
+      imageURL,
+      title,
+      description,
+      blogcontent,
+      user: userId,
+    });
+
+    // Saving the blog to the database
     await blog.save();
-    res.status(201).json({message: "Blog created successfully"});
-  }catch(err){
-    res.status(400).json({error: "Blog creation failed"});
+
+    // Sending a success response
+    res.status(201).json({ message: "Blog created successfully" });
+  } catch (error) {// Log the database error
+    console.error('Error saving blog to the database:', error);
+  
+    // Sending a more detailed error response to the client
+    res.status(400).json({ error: 'Blog creation failed. Database error.' });
   }
-})
+});
+
 
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;

@@ -28,11 +28,6 @@ function Home() {
           </div>
           <ul className="nav nav-pills">
             <li className="nav-item">
-              <a href="#" className="btn btn-outline-primary me-2" aria-current="page">
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
               <a href="/allblogs" className="btn btn-outline-primary me-2">
                 AllBlogs
               </a>

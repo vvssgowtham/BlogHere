@@ -13,6 +13,10 @@ const RegisteruserSchema = new mongoose.Schema({
 });
 
 const BlogsSchema = new mongoose.Schema({
+    imageURL : {
+        type: String,
+        required: true,
+    },
     title: {
         type: String,
         required: true,
@@ -21,7 +25,7 @@ const BlogsSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    content: {
+    blogcontent : {
         type: String,
         required: true,
     }, 
