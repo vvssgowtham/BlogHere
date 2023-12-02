@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { imageDb } from "./config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -7,12 +7,10 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import "./createblog.css";
 import axios from "axios";
-import { store } from "../App";
 
 function BlogsCreated() {
   const fileInput = useRef();
   const navigate = useNavigate();
-  const [token, setToken] = useContext(store);
   const [img, setImg] = useState("");
   const [formData, setformData] = useState({
     imageURL: "",
@@ -20,10 +18,16 @@ function BlogsCreated() {
     description: "",
     blogcontent: "",
   });
+  const [token, setToken] = useState(localStorage.getItem('token') || "");
+  //display the token using the useEffect
+  useEffect(() => console.log("Token:", token), [token]);
+  useEffect(() => {
+    //if token not found navigate to login page
+  if (!token) {
+    return navigate("/login");
+  }
+  },[])
 
-  const storedToken = localStorage.getItem("token");
-  setToken(storedToken || "");
-  console.log(token);
 
   const logout = () => {
     localStorage.removeItem("token");

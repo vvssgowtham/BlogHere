@@ -14,34 +14,32 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useNavigate } from "react-router-dom";
-import { useState,useContext,useEffect } from "react";
-import { store } from "../App";
+import { useState,useEffect } from "react";
 import axios from "axios";
 
 const defaultTheme = createTheme();
 
 function Logins() {
   const navigate = useNavigate();
-
-  const [token,setToken] = useContext(store);
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [token, setToken] = useState("");
 
-  //this is just for viewing that token has been assigned or not.
+
   useEffect(() => {
-    console.log('Updated token:', token);
-  }, [token]);
+    console.log(token);
+  },[token])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
     const response = await axios.post("http://localhost:5000/login", formData);
-    await window.localStorage.setItem('token', response.data.token);
-    setToken(localStorage.getItem('token'));
+    window.localStorage.setItem('token', response.data.token);
+    setToken(response.data.token);
     alert("Login Successful");
     setFormData({ email: '', password: '' });
   } catch (error) {
-    alert('Invalid credentials');
+    alert('Invalid credentials'+e);
   }
   };
   if(token){

@@ -103,8 +103,12 @@ app.get("/myblogs", middleware, async (req, res) => {
     if (!exist) {
       return res.status(400).send("user not found");
     }
-    //exist contains the object in the form of user
-    res.json(exist);
+    //send complete object with all the form
+    else{
+      //send blog object of that user who is authenticated
+      const blogs = await Blogs.find({ user: req.user.id });
+      return res.json(blogs);
+    }
   } catch (err) {
     console.log(err);
     return res.status(500).send("Server error"+err);

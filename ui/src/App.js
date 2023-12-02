@@ -11,11 +11,7 @@ import AllBlogs from "./components/AllBlogs";
 export const store = createContext();
 
 function App() {
-  const [token, setToken] = useState(null); //by default value of token is null endhukantey by default first loney user login ayyi undadu kadhaa so andhukey null pettanu
-
   return (
-    //with store provider property we will be able to send (token) to each and every component using useContext
-    <store.Provider value={[token,setToken]}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -26,7 +22,6 @@ function App() {
           <Route path="/allblogs" element={<AllBlogs />} />
         </Routes>
       </BrowserRouter>
-    </store.Provider>
   );
 }
 
