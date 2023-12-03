@@ -47,7 +47,7 @@ function BlogsCreated() {
       if (token) {
         try {
           const response = await axios.post(
-            "http://localhost:5000/createblog",
+            "https://blogherewebservice.onrender.com/createblog",
             { ...formData, imageURL: url },
             {
               headers: {
