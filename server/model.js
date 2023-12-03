@@ -37,8 +37,29 @@ const BlogsSchema = new mongoose.Schema({
     },
 });
 
+const BlogDataSchema = new mongoose.Schema({
+    imageURL : {
+        type: String,
+        required: true,
+    },
+    title: {
+        type: String,
+        required: true,
+    },
+    blogcontent : {
+        type: String,
+        required: true,
+    },
+    userblogs:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Blogs', // Reference to the Blogs model
+        required: true,
+    }
+})
+
 const Registeruser = mongoose.model('Registeruser', RegisteruserSchema);
 const Blogs = mongoose.model('Blogs', BlogsSchema);
+const BlogData = mongoose.model('BlogData', BlogDataSchema);
 
 // Export the models as properties of an object
-module.exports = { Registeruser, Blogs };
+module.exports = { Registeruser, Blogs, BlogData};

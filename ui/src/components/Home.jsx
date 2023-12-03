@@ -63,14 +63,16 @@ function Home() {
               <button
                 type="button"
                 className="btn btn-outline-primary btn-lg px-4 me-md-2"
+                onClick={()=>navigate("/createblog")}
               >
-                Primary
+                Create Blog
               </button>
               <button
                 type="button"
                 className="btn btn-outline-secondary btn-lg px-4"
+                onClick={()=>navigate("/myblogs")}
               >
-                Default
+                My Blogs
               </button>
             </div>
           </div>

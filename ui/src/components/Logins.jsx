@@ -34,12 +34,12 @@ function Logins() {
 
     try {
     const response = await axios.post("http://localhost:5000/login", formData);
-    window.localStorage.setItem('token', response.data.token);
+    window.sessionStorage.setItem('token', response.data.token);
     setToken(response.data.token);
     alert("Login Successful");
     setFormData({ email: '', password: '' });
   } catch (error) {
-    alert('Invalid credentials'+e);
+    alert('Invalid credentials'+error);
   }
   };
   if(token){

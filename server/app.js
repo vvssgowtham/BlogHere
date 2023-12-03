@@ -1,10 +1,11 @@
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const { Registeruser, Blogs } = require("./model");
+const { Registeruser, Blogs, BlogData} = require("./model");
 const middleware = require('./middleware');
 
 app.use(cors({origin:'*'}));//origin means from any kind of domain if we want to access the router we need this
@@ -46,6 +47,41 @@ app.post("/createblog", middleware, async (req, res) => {
   }
 });
 
+app.get("/myblogs/:id",middleware,async (req, res)=> {
+  //finding particular blog objects
+  const blog = await Blogs.findById(req.params.id);
+  //if blog is not there
+  if (!blog) {
+    return res.status(404).send("Blog not found");
+  }
+  //if blog is there then return that blog
+  else{
+    return res.json(blog);
+  }
+});
+
+app.get("/allblogs",async (req, res)=> {
+  try{
+    //send all blogs 
+    const blogs = await Blogs.find();
+    return res.json(blogs);
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).send("Server error"+err);
+  }
+})
+
+app.get("/allblogs/:id",async (req, res)=> {
+  const blog = await Blogs.findById(req.params.id);
+  if (!blog) {
+    return res.status(404).send("Blog not found");
+  }
+  //if blog is there then return that blog
+  else{
+    return res.json(blog);
+  }
+})
 
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;
@@ -81,7 +117,7 @@ app.post("/login", async (req, res) => {
       },
     };
     //return the tokens if there is any error while returning the token handling will be done
-    jwt.sign(payload, "thisisasecret", (err, token) => {
+    jwt.sign(payload,process.env.secretkey, (err, token) => {
       if (err) throw err;
       return res.json({ token });
     });

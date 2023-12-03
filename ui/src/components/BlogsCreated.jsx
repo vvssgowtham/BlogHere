@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import "./createblog.css";
 import axios from "axios";
+import Navbar from "./Navbar";
 
 function BlogsCreated() {
   const fileInput = useRef();
@@ -18,7 +19,7 @@ function BlogsCreated() {
     description: "",
     blogcontent: "",
   });
-  const [token, setToken] = useState(localStorage.getItem('token') || "");
+  const [token, setToken] = useState(sessionStorage.getItem('token') || "");
   //display the token using the useEffect
   useEffect(() => console.log("Token:", token), [token]);
   useEffect(() => {
@@ -30,7 +31,7 @@ function BlogsCreated() {
 
 
   const logout = () => {
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     setToken("");
     navigate("/allblogs");
   }
@@ -56,7 +57,6 @@ function BlogsCreated() {
           );
           if (response.status === 201) {
             alert("Blog created successfully");
-
             setformData({ title: "", description: "", blogcontent: "" });
             setImg(null);
             fileInput.current.value = "";
@@ -76,6 +76,7 @@ function BlogsCreated() {
 
   return (
     <div>
+    <Navbar />
       <div className="centered-container">
         {" "}
         {/* Add a class for centering */}
