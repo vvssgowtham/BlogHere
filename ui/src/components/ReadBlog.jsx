@@ -12,7 +12,7 @@ const ReadBlog = () => {
         const fetchData = async () => {
             try {
                 if (token) {
-                    const res = await axios.get(`https://bloghereserver.onrender.com/myblogs/${blogID.id}`, {
+                    const res = await axios.get(`http://localhost:5000/myblogs/${blogID.id}`, {
                         headers: {
                             "x-token": token,
                         },

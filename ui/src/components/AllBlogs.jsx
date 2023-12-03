@@ -16,7 +16,7 @@ function AllBlogs() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("https://bloghereserver.onrender.com/allblogs");
+        const res = await axios.get("http://localhost:5000/allblogs");
         setData(res.data);
       } catch (err) {
         console.log(err);
