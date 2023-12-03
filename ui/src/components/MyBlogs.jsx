@@ -12,7 +12,7 @@ function MyBlogs() {
     const fetchData = async () => {
       try {
         if (token) {
-          const res = await axios.get("https://blogherewebservice.onrender.com/myblogs", {
+          const res = await axios.get("http://localhost:5000/myblogs", {
             headers: {
               "x-token": token,
             },
