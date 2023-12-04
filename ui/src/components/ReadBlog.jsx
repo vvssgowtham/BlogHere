@@ -39,9 +39,9 @@ const ReadBlog = () => {
     {/* Section: Design Block */}
     <section className="mb-32">
       
-    <h1 className=" mt-8 mb-8 text-5xl font-bold">
+    <h3 className=" mt-8 mb-8 text-5xl font-bold">
       {data.title}
-      </h1>
+      </h3>
       <img
         src={data.imageURL}
         className="mb-6 w-full h-96 rounded-lg shadow-lg dark:shadow-black/20"
