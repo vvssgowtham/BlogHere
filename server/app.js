@@ -5,7 +5,7 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const { Registeruser, Blogs, BlogData} = require("./model");
+const { Registeruser, Blogs} = require("./model");
 const middleware = require('./middleware');
 
 app.use(cors()); // Enable CORS//origin means from any kind of domain if we want to access the router we need this
