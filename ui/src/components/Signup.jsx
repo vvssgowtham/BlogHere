@@ -63,11 +63,11 @@ function SignUp() {
                   fullWidth
                   id="email"
                   label="Email Address"
-                  type='email'
                   name="email"
                   autoComplete="email"
                   value={formData.email}
                   onChange={(e)=>setFormData({...formData,email:e.target.value})}
+                  type="email"
                 />
               </Grid>
               <Grid item xs={12}>
