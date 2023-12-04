@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { imageDb } from "./config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import "./createblog.css";
 import axios from "axios";
@@ -78,64 +77,67 @@ function BlogsCreated() {
       <Navbar />
       <div className="centered-container">
         {/* Add a class for centering */}
-        <div className="form-container">
+        <div className="form-container max-w-3xl mx-auto">
           {/* Add a class for styling the form */}
           <h1 className="m-3 text-center text-lg font-semibold">
             WRITE YOUR BLOG
           </h1>
-          <form onSubmit={handleSubmit}>
-            <input
-              className="m-5"
-              type="file"
-              ref={fileInput}
-              onChange={(e) => setImg(e.target.files[0])}
-            />
-            <div className="md:flex">
-              {/* Use md:flex to enable flex layout on medium screens and larger */}
-              <div className="md:w-1/2 px-3">
-                {/* Use md:w-1/2 to set width to 50% on medium screens and larger */}
-                <TextField
-                  id="standard-textarea"
-                  label="TITLE"
-                  placeholder="Placeholder"
-                  multiline
-                  value={formData.title}
-                  variant="standard"
-                  onChange={(e) =>
-                    setformData({ ...formData, title: e.target.value })
-                  }
-                  className="w-full md:w-4/5" // Set width to 100% on small screens and 80% on medium screens and larger
-                />
-              </div>
-              <div className="md:w-1/2 px-3">
-                {/* Use md:w-1/2 to set width to 50% on medium screens and larger */}
-                <TextField
-                  id="standard-textarea"
-                  label="DESCRIPTION"
-                  placeholder="Description"
-                  multiline
-                  value={formData.description}
-                  variant="standard"
-                  onChange={(e) =>
-                    setformData({ ...formData, description: e.target.value })
-                  }
-                  className="w-full" // Set width to 100% on small screens and larger
-                />
-              </div>
+          <form onSubmit={handleSubmit} className="md:flex">
+            {/* Use md:flex to enable flex layout on medium screens and larger */}
+            <div className="md:w-1/2 px-3 mb-5">
+              {/* Use md:w-1/2 to set width to 50% on medium screens and larger */}
+              <input
+                className="w-full"
+                type="file"
+                ref={fileInput}
+                onChange={(e) => setImg(e.target.files[0])}
+              />
             </div>
-            <TextField
-              id="standard-textarea"
-              label="BLOG HERE"
-              placeholder="BlogHere"
-              multiline
-              value={formData.blogcontent}
-              variant="standard"
-              onChange={(e) =>
-                setformData({ ...formData, blogcontent: e.target.value })
-              }
-              className="w-full" // Set width to 100% on all screen sizes
-            />
-            <div className="text-center">
+            <div className="md:w-1/2 px-3 mb-5">
+              {/* Use md:w-1/2 to set width to 50% on medium screens and larger */}
+              <TextField
+                id="standard-textarea"
+                label="TITLE"
+                placeholder="Placeholder"
+                multiline
+                value={formData.title}
+                variant="standard"
+                onChange={(e) =>
+                  setformData({ ...formData, title: e.target.value })
+                }
+                className="w-full" // Set width to 100% on all screen sizes
+              />
+            </div>
+            <div className="md:w-1/2 px-3 mb-5">
+              {/* Use md:w-1/2 to set width to 50% on medium screens and larger */}
+              <TextField
+                id="standard-textarea"
+                label="DESCRIPTION"
+                placeholder="Description"
+                multiline
+                value={formData.description}
+                variant="standard"
+                onChange={(e) =>
+                  setformData({ ...formData, description: e.target.value })
+                }
+                className="w-full" // Set width to 100% on all screen sizes
+              />
+            </div>
+            <div className="w-full mb-5">
+              <TextField
+                id="standard-textarea"
+                label="BLOG HERE"
+                placeholder="BlogHere"
+                multiline
+                value={formData.blogcontent}
+                variant="standard"
+                onChange={(e) =>
+                  setformData({ ...formData, blogcontent: e.target.value })
+                }
+                className="w-full" // Set width to 100% on all screen sizes
+              />
+            </div>
+            <div className="w-full text-center">
               {/* Center the buttons */}
               <button
                 type="submit"
