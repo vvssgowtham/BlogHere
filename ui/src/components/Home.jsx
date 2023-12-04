@@ -15,8 +15,8 @@ function Home() {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width={30}
-                height={30}
+                width={34}
+                height={34}
                 fill="currentColor"
                 className="bi bi-camera"
                 viewBox="0 0 16 16"
