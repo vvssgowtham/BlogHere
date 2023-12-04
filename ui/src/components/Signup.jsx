@@ -27,7 +27,7 @@ function SignUp() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await axios.post('http://localhost:5000/signup', formData)
+        const response = await axios.post('https://bloghereserver.onrender.com/signup', formData)
           .then(response => {
             alert("SignedUp Successfully"); 
             setFormData({email: '', password: ''});
