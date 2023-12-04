@@ -1,14 +1,18 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+
   const navigate = useNavigate();
 
   return (
     <section>
       <div className="container mx-auto px-100">
-        <header className="flex flex-wrap items-center justify-between py-3 mb-4 border-b">
-          <div className="w-full md:w-1/2 mb-2 md:mb-0">
-            <a href="/" className="flex items-center text-decoration-none">
+        <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+          <div className="col-md-3 mb-2 mb-md-0">
+            <a
+              href="/"
+              className="d-inline-flex link-body-emphasis text-decoration-none"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={32}
@@ -17,11 +21,12 @@ function Home() {
                 className="bi bi-camera"
                 viewBox="0 0 16 16"
               >
-                {/* Your SVG paths here */}
+                <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
               </svg>
             </a>
           </div>
-          <ul className="nav nav-pills flex-grow md:w-1/2">
+          <ul className="nav nav-pills">
             <li className="nav-item">
               <a href="/allblogs" className="btn btn-outline-primary me-2">
                 AllBlogs
@@ -33,57 +38,48 @@ function Home() {
               </a>
             </li>
           </ul>
-          <div className="w-full md:w-1/2 text-end mt-2 md:mt-0">
-            <button
-              type="button"
-              className="btn btn-outline-primary me-2"
-              onClick={() => navigate("/login")}
-            >
+          <div className="col-md-3 text-end">
+            <button type="button" className="btn btn-outline-primary me-2" onClick={()=>navigate("/login")}>
               Login
             </button>
-            <button
-              type="button"
-              className="btn btn-outline-primary me-2"
-              onClick={() => navigate("/signup")}
-            >
+            <button type="button" className="btn btn-outline-primary me-2" onClick={()=>navigate("/signup")}>
               Sign-up
             </button>
           </div>
         </header>
-        <div className="flex flex-col-reverse md:flex-row items-center md:items-start g-5 py-5">
-          <div className="w-full md:w-1/2">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary mb-3">
+        <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
+          <div className="col-lg-6">
+            <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">
               Storyteller's Corner
             </h1>
-            <p className="text-lg leading-relaxed mb-6">
+            <p className="lead">
               "Where Stories Unfold, Ideas Flourish, and Imagination Reigns
-              Supreme"...
-              <br />
-              Experience a journey through your blogs, where stories weave
-              intricate tales, ideas flourish, and imagination paints a
+              Supreme"...<br/>Experience a journey through your blogs, where stories
+              weave intricate tales, ideas flourish, and imagination paints a
               masterpiece of possibility with every post.
             </p>
-            <div className="flex flex-col md:flex-row">
+            <br />
+            <div className="d-grid gap-2 d-md-flex justify-content-md-start">
               <button
                 type="button"
-                className="btn btn-outline-primary btn-lg px-4 mb-2 md:mb-0 md:me-2"
-                onClick={() => navigate("/createblog")}
+                className="btn btn-outline-primary btn-lg px-4 me-md-2"
+                onClick={()=>navigate("/createblog")}
               >
                 Create Blog
               </button>
               <button
                 type="button"
                 className="btn btn-outline-secondary btn-lg px-4"
-                onClick={() => navigate("/myblogs")}
+                onClick={()=>navigate("/myblogs")}
               >
                 My Blogs
               </button>
             </div>
           </div>
-          <div className="w-full md:w-1/2">
+          <div className="col-10 col-sm-8 col-lg-6">
             <img
               src="Blog.png"
-              className="mx-auto md:mx-0 md:ml-auto md:mr-0 md:rounded-lg md:shadow-lg"
+              className="d-block mx-lg-auto img-fluid"
               alt="Bootstrap Themes"
               width={700}
               height={500}
@@ -91,10 +87,7 @@ function Home() {
             />
           </div>
         </div>
-        <footer
-          id="about"
-          className="flex flex-wrap justify-between items-center py-3 my-4 border-t"
-        >
+        <footer id="about" className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
           <div className="col-md-4 d-flex align-items-center">
             <a
               href="/"
