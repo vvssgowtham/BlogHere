@@ -1,7 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function Home() {
-
   const navigate = useNavigate();
 
   return (
@@ -21,12 +20,11 @@ function Home() {
                 className="bi bi-camera"
                 viewBox="0 0 16 16"
               >
-                <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
-                <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                {/* Your SVG path here */}
               </svg>
             </a>
           </div>
-          <ul className="nav nav-pills">
+          <ul className="nav nav-pills flex-grow-1">
             <li className="nav-item">
               <a href="/allblogs" className="btn btn-outline-primary me-2">
                 AllBlogs
@@ -38,15 +36,24 @@ function Home() {
               </a>
             </li>
           </ul>
-          <div className="col-md-3 text-end">
-            <button type="button" className="btn btn-outline-primary me-2" onClick={()=>navigate("/login")}>
+          <div className="col-md-3 text-md-end mt-2 mt-md-0">
+            <button
+              type="button"
+              className="btn btn-outline-primary me-2"
+              onClick={() => navigate("/login")}
+            >
               Login
             </button>
-            <button type="button" className="btn btn-outline-primary me-2" onClick={()=>navigate("/signup")}>
+            <button
+              type="button"
+              className="btn btn-outline-primary me-2"
+              onClick={() => navigate("/signup")}
+            >
               Sign-up
             </button>
           </div>
         </header>
+
         <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
           <div className="col-lg-6">
             <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">
@@ -54,8 +61,10 @@ function Home() {
             </h1>
             <p className="lead">
               "Where Stories Unfold, Ideas Flourish, and Imagination Reigns
-              Supreme"...<br/>Experience a journey through your blogs, where stories
-              weave intricate tales, ideas flourish, and imagination paints a
+              Supreme"...
+              <br />
+              Experience a journey through your blogs, where stories weave
+              intricate tales, ideas flourish, and imagination paints a
               masterpiece of possibility with every post.
             </p>
             <br />
@@ -63,14 +72,14 @@ function Home() {
               <button
                 type="button"
                 className="btn btn-outline-primary btn-lg px-4 me-md-2"
-                onClick={()=>navigate("/createblog")}
+                onClick={() => navigate("/createblog")}
               >
                 Create Blog
               </button>
               <button
                 type="button"
                 className="btn btn-outline-secondary btn-lg px-4"
-                onClick={()=>navigate("/myblogs")}
+                onClick={() => navigate("/myblogs")}
               >
                 My Blogs
               </button>
@@ -87,7 +96,10 @@ function Home() {
             />
           </div>
         </div>
-        <footer id="about" className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <footer
+          id="about"
+          className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+        >
           <div className="col-md-4 d-flex align-items-center">
             <a
               href="/"
