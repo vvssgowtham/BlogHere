@@ -77,15 +77,14 @@ function BlogsCreated() {
       <Navbar />
       <div className="centered-container">
         {/* Add a class for centering */}
-        <div className="form-container max-w-3xl mx-auto">
+        <div className="form-container max-w-4xl mx-auto p-4">
           {/* Add a class for styling the form */}
-          <h1 className="m-3 text-center text-lg font-semibold">
+          <h1 className="text-center text-lg font-semibold mb-4">
             WRITE YOUR BLOG
           </h1>
-          <form onSubmit={handleSubmit} className="md:flex">
-            {/* Use md:flex to enable flex layout on medium screens and larger */}
-            <div className="md:w-1/2 px-3 mb-5">
-              {/* Use md:w-1/2 to set width to 50% on medium screens and larger */}
+          <form onSubmit={handleSubmit} className="flex flex-wrap">
+            {/* Full width on small screens, half width on medium screens and larger */}
+            <div className="w-full md:w-1/2 lg:w-1/3 px-3 mb-4">
               <input
                 className="w-full"
                 type="file"
@@ -93,8 +92,8 @@ function BlogsCreated() {
                 onChange={(e) => setImg(e.target.files[0])}
               />
             </div>
-            <div className="md:w-1/2 px-3 mb-5">
-              {/* Use md:w-1/2 to set width to 50% on medium screens and larger */}
+            {/* Full width on small screens, full width on medium screens and larger */}
+            <div className="w-full px-3 mb-4">
               <TextField
                 id="standard-textarea"
                 label="TITLE"
@@ -108,8 +107,8 @@ function BlogsCreated() {
                 className="w-full" // Set width to 100% on all screen sizes
               />
             </div>
-            <div className="md:w-1/2 px-3 mb-5">
-              {/* Use md:w-1/2 to set width to 50% on medium screens and larger */}
+            {/* Full width on small screens, half width on medium screens and larger */}
+            <div className="w-full md:w-1/2 px-3 mb-4">
               <TextField
                 id="standard-textarea"
                 label="DESCRIPTION"
@@ -123,7 +122,8 @@ function BlogsCreated() {
                 className="w-full" // Set width to 100% on all screen sizes
               />
             </div>
-            <div className="w-full mb-5">
+            {/* Full width on all screen sizes */}
+            <div className="w-full mb-4">
               <TextField
                 id="standard-textarea"
                 label="BLOG HERE"
@@ -137,8 +137,8 @@ function BlogsCreated() {
                 className="w-full" // Set width to 100% on all screen sizes
               />
             </div>
+            {/* Full width on all screen sizes */}
             <div className="w-full text-center">
-              {/* Center the buttons */}
               <button
                 type="submit"
                 className="btn btn-outline-success px-4 mr-2"
