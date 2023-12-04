@@ -1,7 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function Home() {
-
   const navigate = useNavigate();
 
   return (
@@ -26,25 +25,74 @@ function Home() {
               </svg>
             </a>
           </div>
-          <ul className="nav nav-pills">
-            <li className="nav-item">
-              <a href="/allblogs" className="btn btn-outline-primary me-2">
-                AllBlogs
-              </a>
-            </li>
-            <li className="nav-item">
-              <a href="#about" className="btn btn-outline-primary me-2">
-                About
-              </a>
-            </li>
-          </ul>
-          <div className="col-md-3 text-end">
-            <button type="button" className="btn btn-outline-primary me-2" onClick={()=>navigate("/login")}>
-              Login
-            </button>
-            <button type="button" className="btn btn-outline-primary me-2" onClick={()=>navigate("/signup")}>
-              Sign-up
-            </button>
+          <div className="container">
+            <div className="row">
+              {/* Navigation links */}
+              <div className="col-md-9">
+                {/* Use responsive classes for smaller devices */}
+                <ul className="nav nav-pills d-md-flex justify-content-md-end d-lg-none">
+                  <li className="nav-item">
+                    <a
+                      href="/allblogs"
+                      className="btn btn-outline-primary me-2"
+                    >
+                      AllBlogs
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a href="#about" className="btn btn-outline-primary me-2">
+                      About
+                    </a>
+                  </li>
+                </ul>
+
+                {/* Dropdown menu for smaller devices */}
+                <div className="dropdown d-md-none">
+                  <button
+                    className="btn btn-outline-primary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Menu
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <li>
+                      <a className="dropdown-item" href="/allblogs">
+                        AllBlogs
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#about">
+                        About
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Login and Sign-up buttons */}
+              <div className="col-md-3 text-end">
+                <button
+                  type="button"
+                  className="btn btn-outline-primary me-2"
+                  onClick={() => navigate("/login")}
+                >
+                  Login
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-outline-primary me-2"
+                  onClick={() => navigate("/signup")}
+                >
+                  Sign-up
+                </button>
+              </div>
+            </div>
           </div>
         </header>
         <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
@@ -54,8 +102,10 @@ function Home() {
             </h1>
             <p className="lead">
               "Where Stories Unfold, Ideas Flourish, and Imagination Reigns
-              Supreme"...<br/>Experience a journey through your blogs, where stories
-              weave intricate tales, ideas flourish, and imagination paints a
+              Supreme"...
+              <br />
+              Experience a journey through your blogs, where stories weave
+              intricate tales, ideas flourish, and imagination paints a
               masterpiece of possibility with every post.
             </p>
             <br />
@@ -63,14 +113,14 @@ function Home() {
               <button
                 type="button"
                 className="btn btn-outline-primary btn-lg px-4 me-md-2"
-                onClick={()=>navigate("/createblog")}
+                onClick={() => navigate("/createblog")}
               >
                 Create Blog
               </button>
               <button
                 type="button"
                 className="btn btn-outline-secondary btn-lg px-4"
-                onClick={()=>navigate("/myblogs")}
+                onClick={() => navigate("/myblogs")}
               >
                 My Blogs
               </button>
@@ -87,7 +137,10 @@ function Home() {
             />
           </div>
         </div>
-        <footer id="about" className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <footer
+          id="about"
+          className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+        >
           <div className="col-md-4 d-flex align-items-center">
             <a
               href="/"
