@@ -8,7 +8,13 @@ const mongoose = require("mongoose");
 const { Registeruser, Blogs} = require("./model");
 const middleware = require('./middleware');
 
-app.use(cors()); // Enable CORS//origin means from any kind of domain if we want to access the router we need this
+app.use(cors(
+  {
+    origin : "https://bloghere.vercel.app",
+    methods : ["GET","POST","PUT","DELETE"],
+    credentials : true
+  }
+)); // Enable CORS//origin means from any kind of domain if we want to access the router we need this
 
 //bodyparser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
