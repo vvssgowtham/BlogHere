@@ -19,22 +19,21 @@ function BlogsCreated() {
     description: "",
     blogcontent: "",
   });
-  const [token, setToken] = useState(sessionStorage.getItem('token') || "");
+  const [token, setToken] = useState(sessionStorage.getItem("token") || "");
   //display the token using the useEffect
   useEffect(() => console.log("Token:", token), [token]);
   useEffect(() => {
     //if token not found navigate to login page
-  if (!token) {
-    return navigate("/login");
-  }
-  },[])
-
+    if (!token) {
+      return navigate("/login");
+    }
+  }, []);
 
   const logout = () => {
     sessionStorage.removeItem("token");
     setToken("");
     navigate("/allblogs");
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -76,12 +75,10 @@ function BlogsCreated() {
 
   return (
     <div>
-    <Navbar />
+      <Navbar />
       <div className="centered-container">
-        {" "}
         {/* Add a class for centering */}
         <div className="form-container">
-          {" "}
           {/* Add a class for styling the form */}
           <h1 className="m-3 text-center text-lg font-semibold">
             WRITE YOUR BLOG
@@ -93,15 +90,10 @@ function BlogsCreated() {
               ref={fileInput}
               onChange={(e) => setImg(e.target.files[0])}
             />
-            <Box
-              component="form"
-              sx={{
-                "& .MuiTextField-root": { m: 5, width: "20ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <div>
+            <div className="md:flex">
+              {/* Use md:flex to enable flex layout on medium screens and larger */}
+              <div className="md:w-1/2 px-3">
+                {/* Use md:w-1/2 to set width to 50% on medium screens and larger */}
                 <TextField
                   id="standard-textarea"
                   label="TITLE"
@@ -112,18 +104,11 @@ function BlogsCreated() {
                   onChange={(e) =>
                     setformData({ ...formData, title: e.target.value })
                   }
+                  className="w-full md:w-4/5" // Set width to 100% on small screens and 80% on medium screens and larger
                 />
               </div>
-            </Box>
-            <Box
-              component="form"
-              sx={{
-                "& .MuiTextField-root": { m: 5, width: "50ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <div>
+              <div className="md:w-1/2 px-3">
+                {/* Use md:w-1/2 to set width to 50% on medium screens and larger */}
                 <TextField
                   id="standard-textarea"
                   label="DESCRIPTION"
@@ -134,32 +119,24 @@ function BlogsCreated() {
                   onChange={(e) =>
                     setformData({ ...formData, description: e.target.value })
                   }
+                  className="w-full" // Set width to 100% on small screens and larger
                 />
               </div>
-            </Box>
-            <Box
-              component="form"
-              sx={{
-                "& .MuiTextField-root": { m: 5, width: "75ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <div>
-                <TextField
-                  id="standard-textarea"
-                  label="BLOG HERE"
-                  placeholder="BlogHere"
-                  multiline
-                  value={formData.blogcontent}
-                  variant="standard"
-                  onChange={(e) =>
-                    setformData({ ...formData, blogcontent: e.target.value })
-                  }
-                />
-              </div>
-            </Box>
-            <center>
+            </div>
+            <TextField
+              id="standard-textarea"
+              label="BLOG HERE"
+              placeholder="BlogHere"
+              multiline
+              value={formData.blogcontent}
+              variant="standard"
+              onChange={(e) =>
+                setformData({ ...formData, blogcontent: e.target.value })
+              }
+              className="w-full" // Set width to 100% on all screen sizes
+            />
+            <div className="text-center">
+              {/* Center the buttons */}
               <button
                 type="submit"
                 className="btn btn-outline-success px-4 mr-2"
@@ -167,8 +144,14 @@ function BlogsCreated() {
               >
                 Post
               </button>
-              <button className="btn btn-outline-danger" type="button" onClick={logout}>Logout</button>
-            </center>
+              <button
+                className="btn btn-outline-danger"
+                type="button"
+                onClick={logout}
+              >
+                Logout
+              </button>
+            </div>
           </form>
         </div>
       </div>
