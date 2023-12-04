@@ -30,7 +30,7 @@ const ReadAllBlogs = () => {
             <h1 className="mb-6 text-5xl font-bold">BLOGS</h1>
           </center>
           <hr style={{ borderTop: "2px solid black", width: "100%" }}></hr>
-          <h1 className="mb-6 text-5xl font-bold">{data.title}</h1>
+          <h1 className="mt-8 mb-8 text-5xl font-bold">{data.title}</h1>
           <img
             src={data.imageURL}
             className="mb-6 w-full h-96 rounded-lg shadow-lg dark:shadow-black/20"

@@ -39,7 +39,7 @@ const ReadBlog = () => {
     {/* Section: Design Block */}
     <section className="mb-32">
       
-    <h1 className="mb-6 text-5xl font-bold">
+    <h1 className=" mt-8 mb-8 text-5xl font-bold">
       {data.title}
       </h1>
       <img
