@@ -63,6 +63,7 @@ function SignUp() {
                   fullWidth
                   id="email"
                   label="Email Address"
+                  type='email'
                   name="email"
                   autoComplete="email"
                   value={formData.email}
