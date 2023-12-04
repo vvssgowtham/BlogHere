@@ -14,7 +14,7 @@ app.use(cors()); // Enable CORS//origin means from any kind of domain if we want
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://127.0.0.1:27017/blogusers", {
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
