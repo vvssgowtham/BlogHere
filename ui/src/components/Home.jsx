@@ -103,7 +103,7 @@ function Home() {
           </div>
           <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li className="ms-3">
-              <a className="text-body-secondary" href="#">
+              <a className="text-body-secondary" href="https://twitter.com/vvssgowtham">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width={24}
@@ -117,7 +117,7 @@ function Home() {
               </a>
             </li>
             <li className="ms-3">
-              <a className="text-body-secondary" href="#">
+              <a className="text-body-secondary" href="https://www.instagram.com/i.am_vvss/">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width={24}
