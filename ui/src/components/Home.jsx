@@ -7,11 +7,11 @@ function Home() {
   return (
     <section>
       <div className="container mx-auto px-100">
-        <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-          <div className="col-md-3 p-2 mb-md-0">
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+          <div class="col-md-3 mb-2 mb-md-0">
             <a
               href="/"
-              className="d-inline-flex link-body-emphasis text-decoration-none"
+              class="d-inline-flex link-body-emphasis text-decoration-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -26,23 +26,33 @@ function Home() {
               </svg>
             </a>
           </div>
-          <ul className="nav nav-pills">
-            <li className="nav-item">
+
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li>
               <a href="/allblogs" className="btn btn-outline-primary me-2">
-                AllBlogs
+                Allblogs
               </a>
             </li>
-            <li className="nav-item">
+            <li>
               <a href="#about" className="btn btn-outline-primary me-2">
                 About
               </a>
             </li>
           </ul>
-          <div className="col-md-3 text-end">
-            <button type="button" className="btn btn-outline-primary me-2" onClick={()=>navigate("/login")}>
+
+          <div class="col-md-3 text-end">
+            <button
+              type="button"
+              className="btn btn-outline-primary me-2"
+              onClick={() => navigate("/login")}
+            >
               Login
             </button>
-            <button type="button" className="btn btn-outline-primary me-2" onClick={()=>navigate("/signup")}>
+            <button
+              type="button"
+              className="btn btn-outline-primary me-2"
+              onClick={() => navigate("/signup")}
+            >
               Sign-up
             </button>
           </div>
