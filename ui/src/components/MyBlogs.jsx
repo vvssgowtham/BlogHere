@@ -31,6 +31,23 @@ function MyBlogs() {
     fetchData();
   }, [token, navigate]);
 
+  const onDelete = async (itemId) => {
+    try {
+      const res = await axios.delete(`http://localhost:5000/myblogs/${itemId}`);
+      if (res.status === 200) {
+        setData(data.filter(item => item._id !== itemId)); // Remove the deleted blog from the data state
+      } else {
+        alert("Blog Not Deleted");
+      }
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        alert("Blog Not Found");
+      } else {
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -55,6 +72,7 @@ function MyBlogs() {
                       {item.title}
                     </h5>
                     <p className="card-text mb-2 text-l">{item.description}</p>
+                    <div className="d-flex justify-content-between">
                     <button
                       className="btn btn-primary"
                       onClick={(e) => {
@@ -63,6 +81,8 @@ function MyBlogs() {
                     >
                       Read More
                     </button>
+                    <button className="btn btn-danger" onClick={()=>onDelete(item._id)}>Delete</button>
+                    </div>
                   </div>
                 </div>
               </div>

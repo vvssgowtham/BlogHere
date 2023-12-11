@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
+import parse from 'html-react-parser';
 
 const ReadBlog = () => {
     const  blogID  = useParams();
@@ -47,9 +48,7 @@ const ReadBlog = () => {
         className="mb-6 w-full h-96 rounded-lg shadow-lg dark:shadow-black/20"
         alt="image"
       />
-      <p className="text-xl">
-      {data.blogcontent}
-      </p>
+      <p className="text-xl">{data.blogcontent && parse(data.blogcontent)}</p>
     </section>
     {/* Section: Design Block */}
   </div>

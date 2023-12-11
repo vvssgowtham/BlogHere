@@ -66,6 +66,21 @@ app.get("/myblogs/:id",middleware,async (req, res)=> {
   }
 });
 
+app.delete("/myblogs/:id", async (req, res)=> {
+  try{
+    const blog = await Blogs.findById(req.params.id);
+    if(!blog){
+      return res.status(404).send("Blog not found");
+    }
+    else{
+      await Blogs.deleteOne({_id: req.params.id})
+      return res.status(200).send("Blog deleted successfully");
+    }
+  }catch(err){
+    res.status(500).send("Server error"+err);
+  }
+})
+
 app.get("/allblogs",async (req, res)=> {
   try{
     //send all blogs 

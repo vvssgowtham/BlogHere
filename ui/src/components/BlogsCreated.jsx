@@ -7,6 +7,8 @@ import TextField from "@mui/material/TextField";
 import "./createblog.css";
 import axios from "axios";
 import Navbar from "./Navbar";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 function BlogsCreated() {
   const fileInput = useRef();
@@ -124,7 +126,7 @@ function BlogsCreated() {
             </div>
             {/* Full width on all screen sizes */}
             <div className="w-full mb-4">
-              <TextField
+              {/* <TextField
                 id="standard-textarea"
                 label="BLOG HERE"
                 placeholder="BlogHere"
@@ -135,6 +137,14 @@ function BlogsCreated() {
                   setformData({ ...formData, blogcontent: e.target.value })
                 }
                 className="w-full" // Set width to 100% on all screen sizes
+              /> */}
+              <CKEditor
+                editor={ClassicEditor}
+                data={formData.blogcontent}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  setformData({ ...formData, blogcontent: data });
+                }}
               />
             </div>
             {/* Full width on all screen sizes */}
