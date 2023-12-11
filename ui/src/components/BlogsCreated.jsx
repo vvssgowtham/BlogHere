@@ -9,8 +9,10 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function BlogsCreated() {
+  const isMediumScreen = useMediaQuery("(max-width: 900px)"); // This hook returns true if the screen size is less than 900px
   const fileInput = useRef();
   const navigate = useNavigate();
   const [img, setImg] = useState("");
@@ -126,26 +128,30 @@ function BlogsCreated() {
             </div>
             {/* Full width on all screen sizes */}
             <div className="w-full mb-4">
-              {/* <TextField
-                id="standard-textarea"
-                label="BLOG HERE"
-                placeholder="BlogHere"
-                multiline
-                value={formData.blogcontent}
-                variant="standard"
-                onChange={(e) =>
-                  setformData({ ...formData, blogcontent: e.target.value })
-                }
-                className="w-full" // Set width to 100% on all screen sizes
-              /> */}
-              <CKEditor
-                editor={ClassicEditor}
-                data={formData.blogcontent}
-                onChange={(event, editor) => {
-                  const data = editor.getData();
-                  setformData({ ...formData, blogcontent: data });
-                }}
-              />
+              {isMediumScreen ? (
+                <TextField
+                  id="standard-textarea"
+                  label="BLOG HERE"
+                  placeholder="BlogHere"
+                  multiline
+                  value={formData.blogcontent}
+                  variant="standard"
+                  onChange={(e) =>
+                    setformData({ ...formData, blogcontent: e.target.value })
+                  }
+                  className="w-full"
+                />
+              ) : (
+                <CKEditor
+                  editor={ClassicEditor}
+                  data={formData.blogcontent}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    setformData({ ...formData, blogcontent: data });
+                  }}
+                  className="w-full"
+                />
+              )}
             </div>
             {/* Full width on all screen sizes */}
             <div className="w-full text-center">
