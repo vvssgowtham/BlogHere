@@ -33,7 +33,7 @@ function MyBlogs() {
 
   const onDelete = async (itemId) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/myblogs/${itemId}`);
+      const res = await axios.delete(`https://bloghereserver.onrender.com/myblogs/${itemId}`);
       if (res.status === 200) {
         setData(data.filter(item => item._id !== itemId)); // Remove the deleted blog from the data state
       } else {
