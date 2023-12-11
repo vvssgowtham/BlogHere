@@ -58,10 +58,9 @@ function MyBlogs() {
             <h1 className="mb-6 text-5xl font-bold">BLOGS</h1>
           </center>
           <hr style={{ borderTop: "2px solid black", width: "100%" }}></hr>
-          <div className="mt-4 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {data.map((item) => (
-              <div key={item.id} className="col mb-4">
-                <div className="card" style={{ maxWidth: "25rem" }}>
+              <div key={item.id} className="card mb-4" style={{width:"100%"}}>
                   <img
                     className="card-img-top"
                     src={item.imageURL}
@@ -85,7 +84,6 @@ function MyBlogs() {
                     </div>
                   </div>
                 </div>
-              </div>
             ))}
           </div>
         </section>
