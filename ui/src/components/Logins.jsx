@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 
 const defaultTheme = createTheme();
@@ -25,15 +25,15 @@ function Logins() {
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false); // State variable for loading
 
+
   useEffect(() => {
     console.log(token);
-  }, [token]);
+  },[token])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true); // Show loading backdrop
 
-    try {
+     try {
       const response = await axios.post(
         "https://bloghereserver.onrender.com/login",
         formData
@@ -49,10 +49,9 @@ function Logins() {
     }
   };
 
-  if (token) {
-    return navigate("/myblogs");
+  if(token){
+    return navigate('/myblogs')
   }
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
