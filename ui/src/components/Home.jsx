@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 function Home() {
 
   const navigate = useNavigate();
+  const userSignedIn = sessionStorage.getItem("token");
 
   return (
     <section>
@@ -41,20 +42,34 @@ function Home() {
           </ul>
 
           <div class="col-md-3 text-end">
-            <button
-              type="button"
-              className="btn btn-outline-primary me-2"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </button>
-            <button
-              type="button"
-              className="btn btn-outline-primary me-2"
-              onClick={() => navigate("/signup")}
-            >
-              Sign-up
-            </button>
+          {userSignedIn ? (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-outline-primary me-2"
+                  onClick={() => sessionStorage.removeItem("token") || navigate("/")}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-outline-primary me-2"
+                  onClick={() => navigate("/login")}
+                >
+                  Login
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-outline-primary me-2"
+                  onClick={() => navigate("/signup")}
+                >
+                  Sign-up
+                </button>
+              </>
+            )}
           </div>
         </header>
         <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
