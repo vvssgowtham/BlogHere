@@ -33,7 +33,7 @@ function SignUp() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/signup",
+        "https://bloghereserver.onrender.com/signup",
         formData
       );
       alert("SignedUp Successfully");
