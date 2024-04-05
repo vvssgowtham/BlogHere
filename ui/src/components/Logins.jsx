@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useNavigate } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const defaultTheme = createTheme();
@@ -25,17 +25,18 @@ function Logins() {
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false); // State variable for loading
 
-
   useEffect(() => {
     console.log(token);
-  },[token])
+  }, [token]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-     try {
+    try {
+      setLoading(true); // Show loading backdrop
+
       const response = await axios.post(
-        "https://bloghereserver.onrender.com/login",
+        "http://localhost:5000/login",
         formData
       );
       window.sessionStorage.setItem("token", response.data.token);
@@ -49,8 +50,8 @@ function Logins() {
     }
   };
 
-  if(token){
-    return navigate('/myblogs')
+  if (token) {
+    return navigate("/myblogs");
   }
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -73,7 +74,8 @@ function Logins() {
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          {loading && ( // Show backdrop if loading
+          {loading && (
+            // Show backdrop if loading
             <div
               style={{
                 position: "fixed",
@@ -150,8 +152,9 @@ function Logins() {
                   type="submit"
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  disabled={loading} // Disable the button while loading
                 >
-                  Sign In
+                  {loading ? "Loading..." : "Sign In"}
                 </Button>
               </center>
               <Grid container>
