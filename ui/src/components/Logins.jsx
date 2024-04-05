@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 
 const defaultTheme = createTheme();
@@ -23,36 +23,28 @@ function Logins() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [token, setToken] = useState("");
-  const [loading, setLoading] = useState(false); // State variable for loading
+
 
   useEffect(() => {
     console.log(token);
-  }, [token]);
+  },[token])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true); // Show loading backdrop
 
     try {
-      const response = await axios.post(
-        "https://bloghereserver.onrender.com/login",
-        formData
-      );
-      window.sessionStorage.setItem("token", response.data.token);
-      setToken(response.data.token);
-      alert("Login Successful");
-      setFormData({ email: "", password: "" });
-    } catch (error) {
-      alert("Invalid credentials" + error);
-    } finally {
-      setLoading(false); // Hide loading backdrop
-    }
-  };
-
-  if (token) {
-    return navigate("/myblogs");
+    const response = await axios.post("https://bloghereserver.onrender.com/login", formData);
+    window.sessionStorage.setItem('token', response.data.token);
+    setToken(response.data.token);
+    alert("Login Successful");
+    setFormData({ email: '', password: '' });
+  } catch (error) {
+    alert('Invalid credentials'+error);
   }
-
+  };
+  if(token){
+    return navigate('/myblogs')
+  }
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -74,26 +66,6 @@ function Logins() {
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          {loading && ( // Show backdrop if loading
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                backgroundColor: "rgba(0, 0, 0, 0.5)", // semi-transparent black
-                zIndex: 9999, // on top of everything
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography variant="h4" component="div" gutterBottom>
-                Loading...
-              </Typography>
-            </div>
-          )}
           <Box
             sx={{
               my: 18,
@@ -124,9 +96,7 @@ function Logins() {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
+                onChange={(e)=>setFormData({...formData,email:e.target.value})}
               />
               <TextField
                 margin="normal"
@@ -137,9 +107,7 @@ function Logins() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
+                onChange={(e)=>setFormData({...formData,password:e.target.value})}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -147,11 +115,7 @@ function Logins() {
               />
               <br></br>
               <center>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
+                <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
                   Sign In
                 </Button>
               </center>
