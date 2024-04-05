@@ -1,41 +1,50 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { useState } from "react";
+import axios from "axios";
 
-import { useState } from 'react';
-import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
-// TODO remove, this demo shouldn't need to reset the theme.
+//TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 function SignUp() {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false); // New state variable
+  const navigate = useNavigate();
 
-    const[formData,setFormData] = useState({email : '',password : ''});
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true); // Disable the button
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const response = await axios.post('https://bloghereserver.onrender.com/signup', formData)
-          .then(response => {
-            alert("SignedUp Successfully"); 
-            setFormData({email: '', password: ''});
-          })
-        .catch (e =>{
-          alert('Mail already registered');
-        }
-      )};
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/signup",
+        formData
+      );
+      alert("SignedUp Successfully");
+      setFormData({ email: "", password: "" });
+      navigate("/");
+    } catch (error) {
+      console.log(error.response);
+    } finally {
+      setIsSubmitting(false); // Enable the button
+    }
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -44,18 +53,23 @@ function SignUp() {
         <Box
           sx={{
             marginTop: 20,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -66,7 +80,9 @@ function SignUp() {
                   name="email"
                   autoComplete="email"
                   value={formData.email}
-                  onChange={(e)=>setFormData({...formData,email:e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   type="email"
                 />
               </Grid>
@@ -80,12 +96,16 @@ function SignUp() {
                   id="password"
                   autoComplete="new-password"
                   value={formData.password}
-                  onChange={(e)=>setFormData({...formData,password:e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
@@ -95,6 +115,7 @@ function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={isSubmitting} // Disable the button based on the state
             >
               Sign Up
             </Button>
