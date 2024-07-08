@@ -1,20 +1,20 @@
-import React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import React, { useState, useEffect } from "react";
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Link,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  Backdrop,
+  CircularProgress,
+} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import axios from "axios";
 
 const defaultTheme = createTheme();
@@ -23,7 +23,7 @@ function Logins() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [token, setToken] = useState("");
-  const [loading, setLoading] = useState(false); // State variable for loading
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     console.log(token);
@@ -31,10 +31,9 @@ function Logins() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     try {
-      setLoading(true); // Show loading backdrop
-
       const response = await axios.post(
         "https://bloghereserver.onrender.com/login",
         formData
@@ -46,13 +45,14 @@ function Logins() {
     } catch (error) {
       alert("Invalid credentials" + error);
     } finally {
-      setLoading(false); // Hide loading backdrop
+      setLoading(false);
     }
   };
 
   if (token) {
     return navigate("/myblogs");
   }
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -74,27 +74,6 @@ function Logins() {
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          {loading && (
-            // Show backdrop if loading
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                backgroundColor: "rgba(0, 0, 0, 0.5)", // semi-transparent black
-                zIndex: 9999, // on top of everything
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography variant="h4" component="div" gutterBottom>
-                Loading...
-              </Typography>
-            </div>
-          )}
           <Box
             sx={{
               my: 18,
@@ -125,6 +104,7 @@ function Logins() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
@@ -138,13 +118,10 @@ function Logins() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={formData.password}
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
               />
               <br></br>
               <center>
@@ -152,7 +129,7 @@ function Logins() {
                   type="submit"
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  disabled={loading} // Disable the button while loading
+                  disabled={loading}
                 >
                   {loading ? "Loading..." : "Sign In"}
                 </Button>
@@ -168,6 +145,12 @@ function Logins() {
           </Box>
         </Grid>
       </Grid>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </ThemeProvider>
   );
 }

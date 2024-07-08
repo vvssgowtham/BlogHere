@@ -10,6 +10,8 @@ import Navbar from "./Navbar";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function BlogsCreated() {
   const isMediumScreen = useMediaQuery("(max-width: 900px)"); // This hook returns true if the screen size is less than 900px
@@ -23,14 +25,16 @@ function BlogsCreated() {
     blogcontent: "",
   });
   const [token, setToken] = useState(sessionStorage.getItem("token") || "");
-  //display the token using the useEffect
+  const [loading, setLoading] = useState(false); // State variable for loading
+
   useEffect(() => console.log("Token:", token), [token]);
+
   useEffect(() => {
     //if token not found navigate to login page
     if (!token) {
       return navigate("/login");
     }
-  }, []);
+  }, [token, navigate]);
 
   const logout = () => {
     sessionStorage.removeItem("token");
@@ -40,6 +44,7 @@ function BlogsCreated() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true); // Show loading backdrop
 
     if (img instanceof File && img.size > 0) {
       const storage = ref(imageDb, `files/${v4()}`);
@@ -59,7 +64,7 @@ function BlogsCreated() {
           );
           if (response.status === 201) {
             alert("Blog created successfully");
-            setformData({ title: "", description: "", blogcontent: "" });
+            setformData((prevState) => ({ ...prevState, title: "", description: "", blogcontent: "" }));
             setImg(null);
             fileInput.current.value = "";
           } else {
@@ -69,10 +74,13 @@ function BlogsCreated() {
         } catch (error) {
           console.error("Error:", error);
           alert("Failed to create blog");
+        } finally {
+          setLoading(false); // Hide loading backdrop
         }
       }
     } else {
       alert("Please select an image file");
+      setLoading(false); // Hide loading backdrop if there's an error
     }
   };
 
@@ -159,8 +167,9 @@ function BlogsCreated() {
                 type="submit"
                 className="btn btn-outline-success px-4 mr-2"
                 variant="contained"
+                disabled={loading} // Disable button while loading
               >
-                Post
+                {loading ? "Posting..." : "Post"}
               </button>
               <button
                 className="btn btn-outline-danger"
@@ -173,6 +182,12 @@ function BlogsCreated() {
           </form>
         </div>
       </div>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 }
