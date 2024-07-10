@@ -56,7 +56,13 @@ function SignUp() {
         "https://bloghereserver.onrender.com/signup",
         formData
       );
-      alert("Signed Up Successfully");
+      if (response.status === 200) {
+        alert("Signed Up Successfully");
+      } else if (response.status === 409) {
+        alert("User already exists");
+      } else {
+        alert("Registration failed");
+      }
       setFormData({ email: "", password: "" });
       navigate("/");
     } catch (error) {
