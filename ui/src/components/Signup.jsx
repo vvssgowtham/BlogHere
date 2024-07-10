@@ -58,15 +58,16 @@ function SignUp() {
       );
       if (response.status === 200) {
         alert("Signed Up Successfully");
-      } else if (response.status === 409) {
-        alert("User already exists");
+        setFormData({ email: "", password: "" });
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error.response || error);
+      if (error.response && error.response.status === 409) {
+        alert("Username already taken");
       } else {
         alert("Registration failed");
       }
-      setFormData({ email: "", password: "" });
-      navigate("/");
-    } catch (error) {
-      console.log(error.response);
     } finally {
       setIsSubmitting(false);
     }
