@@ -65,8 +65,10 @@ function SignUp() {
       console.error(error.response || error);
       if (error.response && error.response.status === 409) {
         alert("Username already taken");
+        setFormData({ email: "", password: "" });
       } else {
         alert("Registration failed");
+        setFormData({ email: "", password: "" });
       }
     } finally {
       setIsSubmitting(false);
