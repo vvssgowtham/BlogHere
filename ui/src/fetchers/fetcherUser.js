@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 export const loginUser = async (email, password) => {
   try {
     const response = await fetch("https://bloghereserver.onrender.com/login", {

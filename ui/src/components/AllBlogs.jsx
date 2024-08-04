@@ -41,7 +41,7 @@ function AllBlogs() {
                 <img
                   className="card-img-top"
                   src={item.imageURL}
-                  alt="Card image cap"
+                  alt="CardCap"
                 />
                 <div className="card-body">
                   <h5 className="card-title text-xl font-semibold antialiased">

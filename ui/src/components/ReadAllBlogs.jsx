@@ -35,7 +35,7 @@ const ReadAllBlogs = () => {
           <img
             src={data.imageURL}
             className="mb-6 w-full h-96 rounded-lg shadow-lg dark:shadow-black/20"
-            alt="image"
+            alt="pictorial"
           />
           <p className="text-xl">{data.blogcontent && parse(data.blogcontent)}</p>
         </section>
