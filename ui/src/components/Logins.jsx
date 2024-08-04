@@ -135,7 +135,7 @@ function Logins() {
       </Grid>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={mutation.isLoading} // This should be a boolean
+        open={mutation.isLoading}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
