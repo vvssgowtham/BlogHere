@@ -136,7 +136,7 @@ function SignUp() {
               sx={{ mt: 3, mb: 2 }}
               disabled={mutation.isLoading}
             >
-              Sign Up
+              {mutation.isLoading ? "Signing Up..." : "Sign Up"}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
