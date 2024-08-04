@@ -1,33 +1,33 @@
-import React from "react";
-import { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import Navbar from "./Navbar";
 import parse from 'html-react-parser';
+import { useQuery } from "@tanstack/react-query";
+import { fetchReadAllBlogs } from "../fetchers/fetcherBlogs";
 
 const ReadAllBlogs = () => {
-  const {id} = useParams();
-  const [data, setData] = useState([]);
-  //get request to read all blogs
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`https://bloghereserver.onrender.com/allblogs/${id}`);
-        setData(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, [id]);
+  const { id } = useParams();
+
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["readBlog", id],
+    queryFn: () => fetchReadAllBlogs(id),
+    retry: 2,
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <>
-    <Navbar />
+      <Navbar />
       <div className="container my-16 mx-auto md:px-6">
         {/* Section: Design Block */}
         <section className="mb-32">
-        <center>
+          <center>
             <h3 className="mb-6 text-5xl font-bold">BLOGS</h3>
           </center>
           <hr style={{ borderTop: "2px solid black", width: "100%" }}></hr>

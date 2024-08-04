@@ -1,18 +1,18 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
-
   const navigate = useNavigate();
   const userSignedIn = sessionStorage.getItem("token");
 
   return (
     <section>
       <div className="container mx-auto px-100">
-      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-          <div class="col-md-3 mb-2 mb-md-0">
+        <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+          <div className="col-md-3 mb-2 mb-md-0">
             <a
               href="/"
-              class="d-inline-flex link-body-emphasis text-decoration-none"
+              className="d-inline-flex link-body-emphasis text-decoration-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@ function Home() {
             </a>
           </div>
 
-          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+          <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li>
               <a href="/allblogs" className="btn btn-outline-primary me-2">
                 Allblogs
@@ -41,8 +41,8 @@ function Home() {
             </li>
           </ul>
 
-          <div class="col-md-3 text-end">
-          {userSignedIn ? (
+          <div className="col-md-3 text-end">
+            {userSignedIn ? (
               <>
                 <button
                   type="button"
@@ -75,11 +75,11 @@ function Home() {
         <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
           <div className="col-lg-6">
             <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">
-              Storyteller's Corner
+              Storyteller&apos;s Corner
             </h1>
             <p className="lead">
-              "Where Stories Unfold, Ideas Flourish, and Imagination Reigns
-              Supreme"...<br/>Experience a journey through your blogs, where stories
+              &ldquo;Where Stories Unfold, Ideas Flourish, and Imagination Reigns
+              Supreme&rdquo;...<br/>Experience a journey through your blogs, where stories
               weave intricate tales, ideas flourish, and imagination paints a
               masterpiece of possibility with every post.
             </p>
@@ -88,14 +88,14 @@ function Home() {
               <button
                 type="button"
                 className="btn btn-outline-primary btn-lg px-4 me-md-2"
-                onClick={()=>navigate("/createblog")}
+                onClick={() => navigate("/createblog")}
               >
                 Create Blog
               </button>
               <button
                 type="button"
                 className="btn btn-outline-secondary btn-lg px-4"
-                onClick={()=>navigate("/myblogs")}
+                onClick={() => navigate("/myblogs")}
               >
                 My Blogs
               </button>
@@ -103,7 +103,13 @@ function Home() {
           </div>
           <div className="col-10 col-sm-8 col-lg-6">
             <img
-              src="Blog.png"
+              srcSet="
+                Images/Blog.webp 500w,
+                Images/Blog.webp 1000w,
+                Images/Blog.webp 1500w
+              "
+              sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              src="Images/Blog.webp"
               className="d-block mx-lg-auto img-fluid"
               alt="Bootstrap Themes"
               width={700}

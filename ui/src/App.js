@@ -1,29 +1,41 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Logins from "./components/Logins";
-import SignUp from "./components/Signup";
-import MyBlogs from "./components/MyBlogs";
-import BlogsCreated from "./components/BlogsCreated";
-import AllBlogs from "./components/AllBlogs";
-import ReadBlog from "./components/ReadBlog";
-import ReadAllBlogs from "./components/ReadAllBlogs";
+import React, { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 
+const Home = lazy(() => import("./components/Home"));
+const Logins = lazy(() => import("./components/Logins"));
+const SignUp = lazy(() => import("./components/Signup"));
+const MyBlogs = lazy(() => import("./components/MyBlogs"));
+const BlogsCreated = lazy(() => import("./components/BlogsCreated"));
+const AllBlogs = lazy(() => import("./components/AllBlogs"));
+const ReadBlog = lazy(() => import("./components/ReadBlog"));
+const ReadAllBlogs = lazy(() => import("./components/ReadAllBlogs"));
+const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
 
 function App() {
   return (
-      <BrowserRouter>
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Logins />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/myblogs" element={<MyBlogs />} />
-          <Route path="/myblogs/:id" element={<ReadBlog />} />
-          <Route path="/createblog" element={<BlogsCreated />} />
           <Route path="/allblogs" element={<AllBlogs />} />
           <Route path="/allblogs/:id" element={<ReadAllBlogs />} />
+          <Route
+            path="/myblogs"
+            element={<ProtectedRoute element={<MyBlogs />} />}
+          />
+          <Route
+            path="/myblogs/:id"
+            element={<ProtectedRoute element={<ReadBlog />} />}
+          />
+          <Route
+            path="/createblog"
+            element={<ProtectedRoute element={<BlogsCreated />} />}
+          />
         </Routes>
-      </BrowserRouter>
+      </Suspense>
+    </>
   );
 }
 

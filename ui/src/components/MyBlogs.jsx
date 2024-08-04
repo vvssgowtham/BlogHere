@@ -1,52 +1,54 @@
-import React, { useState, useEffect } from "react"; //Here we are using useEffect because ee component vacchina ventaney mana yokka user details get chesukovali kadha andhuku.
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Navbar from "./Navbar";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchMyBlogs, deleteBlog } from "../fetchers/fetcherBlogs";
 
 function MyBlogs() {
-  const [data, setData] = useState([]);
-  const [token, setToken] = useState(sessionStorage.getItem("token") || "");
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const token = sessionStorage.getItem("token");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (token) {
-          const res = await axios.get("https://bloghereserver.onrender.com/myblogs", {
-            headers: {
-              "x-token": token,
-            },
-          });
-          setData(res.data);
-        } else {
-          // Redirect to login if token is null or undefined
-          navigate("/login");
-        }
-      } catch (err) {
-        console.log(err);
-        // Handle errors, you might want to redirect to login page
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["myblogs", token],
+    queryFn: () => {
+      if (!token) {
+        throw new Error("No token found");
       }
-    };
-
-    fetchData();
-  }, [token, navigate]);
-
-  const onDelete = async (itemId) => {
-    try {
-      const res = await axios.delete(`https://bloghereserver.onrender.com/myblogs/${itemId}`);
-      if (res.status === 200) {
-        setData(data.filter(item => item._id !== itemId)); // Remove the deleted blog from the data state
+      return fetchMyBlogs(token);
+    },
+    enabled: !!token, // Only fetch if token exists
+    onError: (err) => {
+      if (err.message === "No token found") {
+        navigate("/login"); // Redirect to login if no token
       } else {
+        console.error(err); // Handle other errors
+      }
+    },
+  });
+
+  const mutation = useMutation({
+    mutationFn: (id) => {
+      if (!token) {
+        throw new Error("No token found");
+      }
+      return deleteBlog(id, token);
+    },
+    onSuccess: () => {
+      alert("Blog Deleted Successfully");
+      // Invalidate and refetch the blogs after successful deletion
+      queryClient.invalidateQueries(["myblogs", token]);
+    },
+    onError: (err) => {
+      if (err.message.includes("Failed to delete blog")) {
         alert("Blog Not Deleted");
-      }
-    } catch (err) {
-      if (err.response && err.response.status === 404) {
-        alert("Blog Not Found");
       } else {
-        console.log(err);
+        console.error(err);
       }
-    }
-  };
+    },
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <>
@@ -59,8 +61,13 @@ function MyBlogs() {
           </center>
           <hr style={{ borderTop: "2px solid black", width: "100%" }}></hr>
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {data.map((item) => (
-              <div key={item.id} className="card mb-4" style={{width:"100%"}}>
+            {data && data.length > 0 ? (
+              data.map((item) => (
+                <div
+                  key={item._id}
+                  className="card mb-4"
+                  style={{ width: "100%" }}
+                >
                   <img
                     className="card-img-top"
                     src={item.imageURL}
@@ -72,19 +79,25 @@ function MyBlogs() {
                     </h5>
                     <p className="card-text mb-2 text-l">{item.description}</p>
                     <div className="d-flex justify-content-between">
-                    <button
-                      className="btn btn-primary"
-                      onClick={(e) => {
-                        navigate(`/myblogs/${item._id}`);
-                      }}
-                    >
-                      Read More
-                    </button>
-                    <button className="btn btn-danger" onClick={()=>onDelete(item._id)}>Delete</button>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => navigate(`/myblogs/${item._id}`)}
+                      >
+                        Read More
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => mutation.mutate(item._id)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>
-            ))}
+              ))
+            ) : (
+              <p>No blogs available.</p>
+            )}
           </div>
         </section>
       </div>

@@ -1,60 +1,46 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import Navbar from './Navbar';
-import parse from 'html-react-parser';
+import { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
+import parse from "html-react-parser";
+import { useQuery } from "@tanstack/react-query";
+import { fetchBlog } from "../fetchers/fetcherBlogs";
 
 const ReadBlog = () => {
-    const  blogID  = useParams();
-    const [token, setToken] = useState(sessionStorage.getItem("token") || "");
-    const [data, setData] = useState([]);
+  const { id } = useParams(); // Extract the blogID from params
+  const navigate = useNavigate();
+  const token = sessionStorage.getItem("token"); // Retrieve the token
 
-    useEffect(()=> {
-        const fetchData = async () => {
-            try {
-                if (token) {
-                    const res = await axios.get(`https://bloghereserver.onrender.com/myblogs/${blogID.id}`, {
-                        headers: {
-                            "x-token": token,
-                        },
-                    });
-                    setData(res.data);
-                } else {
-                    // Redirect to login if token is null or undefined
-                    navigate("/login");
-                }
-            } catch (err) {
-                console.log(err);
-                // Handle errors, you might want to redirect to login page
-            }
-        };
+  const {
+    data: blog,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["blog", id],
+    queryFn: () => fetchBlog(id, token),
+    enabled: !!token, // Only run the query if the token exists
+  });
 
-        fetchData();
-    },[token])
-   
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
-    return(
-  <>
-  <Navbar />
-  <div className="container my-16 mx-auto md:px-6">
-    {/* Section: Design Block */}
-    <section className="mb-32">
-      
-    <h3 className=" mt-8 mb-8 text-5xl font-bold">
-      {data.title}
-      </h3>
-      <img
-        src={data.imageURL}
-        className="mb-6 w-full h-96 rounded-lg shadow-lg dark:shadow-black/20"
-        alt="image"
-      />
-      <p className="text-xl">{data.blogcontent && parse(data.blogcontent)}</p>
-    </section>
-    {/* Section: Design Block */}
-  </div>
-  {/* Container for demo purpose */}
-</>
-    );
-}
+  return (
+    <>
+      <Navbar />
+      <div className="container my-16 mx-auto md:px-6">
+        <section className="mb-32">
+          <h3 className="mt-8 mb-8 text-5xl font-bold">{blog.title}</h3>
+          <img
+            src={blog.imageURL}
+            className="mb-6 w-full h-96 rounded-lg shadow-lg dark:shadow-black/20"
+            alt="Blog"
+          />
+          <p className="text-xl">
+            {blog.blogcontent && parse(blog.blogcontent)}
+          </p>
+        </section>
+      </div>
+    </>
+  );
+};
 
 export default ReadBlog;

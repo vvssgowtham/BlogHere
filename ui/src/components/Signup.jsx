@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Avatar,
   Button,
@@ -14,14 +14,14 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { registerUser } from "../fetchers/fetcherUser";
 
 const defaultTheme = createTheme();
 
 function SignUp() {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
@@ -34,7 +34,24 @@ function SignUp() {
     return password.length >= 6; // Password must be at least 6 characters long
   };
 
-  const handleSubmit = async (event) => {
+  const mutation = useMutation({
+    mutationFn: () => registerUser(formData.email, formData.password),
+    onSuccess: () => {
+      alert("Signed Up Successfully");
+      setFormData({ email: "", password: "" });
+      navigate("/");
+    },
+    onError: (error) => {
+      if (error.message.includes("Email already exists")) {
+        alert("Username already taken");
+      } else {
+        alert("Registration failed");
+      }
+      setFormData({ email: "", password: "" });
+    },
+  });
+
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     const emailError = !validateEmail(formData.email)
@@ -49,30 +66,7 @@ function SignUp() {
       return;
     }
 
-    setIsSubmitting(true);
-
-    try {
-      const response = await axios.post(
-        "https://bloghereserver.onrender.com/signup",
-        formData
-      );
-      if (response.status === 200) {
-        alert("Signed Up Successfully");
-        setFormData({ email: "", password: "" });
-        navigate("/");
-      }
-    } catch (error) {
-      console.error(error.response || error);
-      if (error.response && error.response.status === 409) {
-        alert("Username already taken");
-        setFormData({ email: "", password: "" });
-      } else {
-        alert("Registration failed");
-        setFormData({ email: "", password: "" });
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
+    mutation.mutate();
   };
 
   return (
@@ -140,7 +134,7 @@ function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              disabled={isSubmitting}
+              disabled={mutation.isLoading}
             >
               Sign Up
             </Button>
@@ -155,7 +149,7 @@ function SignUp() {
         </Box>
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={isSubmitting}
+          open={mutation.isLoading}
         >
           <CircularProgress color="inherit" />
         </Backdrop>

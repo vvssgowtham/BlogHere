@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Avatar,
   Button,
@@ -15,43 +15,33 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "../fetchers/fetcherUser";
 
 const defaultTheme = createTheme();
 
 function Logins() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [token, setToken] = useState("");
-  const [loading, setLoading] = useState(false);
+  const mutation = useMutation({
+    mutationFn: async (credentials) => {
+      const response = await loginUser(credentials.email, credentials.password);
+      return response; // Assuming loginUser returns { token: ... }
+    },
+    onSuccess: (data) => {
+      sessionStorage.setItem("token", data.token);
+      alert("Logged in successfully");
+      navigate("/myblogs");
+    },
+    onError: (error) => {
+      alert("Invalid credentials: " + (error.message || "An error occurred"));
+    },
+  });
 
-  useEffect(() => {
-    console.log(token);
-  }, [token]);
-
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true);
-
-    try {
-      const response = await axios.post(
-        "https://bloghereserver.onrender.com/login",
-        formData
-      );
-      window.sessionStorage.setItem("token", response.data.token);
-      setToken(response.data.token);
-      alert("Login Successful");
-      setFormData({ email: "", password: "" });
-    } catch (error) {
-      alert("Invalid credentials" + error);
-    } finally {
-      setLoading(false);
-    }
+    mutation.mutate(formData);
   };
-
-  if (token) {
-    return navigate("/myblogs");
-  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -63,7 +53,7 @@ function Logins() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: "url(Images/Login.jpg)",
+            backgroundImage: "url(Images/Login.webp)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -103,6 +93,7 @@ function Logins() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                // eslint-disable-next-line jsx-a11y/no-autofocus
                 autoFocus
                 value={formData.email}
                 onChange={(e) =>
@@ -123,17 +114,14 @@ function Logins() {
                   setFormData({ ...formData, password: e.target.value })
                 }
               />
-              <br></br>
-              <center>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  disabled={loading}
-                >
-                  {loading ? "Loading..." : "Sign In"}
-                </Button>
-              </center>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                disabled={mutation.isLoading}
+              >
+                {mutation.isLoading ? "Loading..." : "Sign In"}
+              </Button>
               <Grid container>
                 <Grid item>
                   <Link href="/signup" variant="body2">
@@ -147,7 +135,7 @@ function Logins() {
       </Grid>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
+        open={mutation.isLoading} // This should be a boolean
       >
         <CircularProgress color="inherit" />
       </Backdrop>
