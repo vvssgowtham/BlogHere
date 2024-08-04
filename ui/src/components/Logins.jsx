@@ -116,11 +116,12 @@ function Logins() {
               />
               <Button
                 type="submit"
+                fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 disabled={mutation.isLoading}
               >
-                {mutation.isLoading ? "Loading..." : "Sign In"}
+                {mutation.isLoading ? "Signing In..." : "Sign In"}
               </Button>
               <Grid container>
                 <Grid item>

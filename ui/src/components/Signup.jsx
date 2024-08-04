@@ -109,6 +109,7 @@ function SignUp() {
                   type="email"
                   error={!!errors.email}
                   helperText={errors.email}
+                  disabled={mutation.isLoading}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -126,6 +127,7 @@ function SignUp() {
                   }
                   error={!!errors.password}
                   helperText={errors.password}
+                  disabled={mutation.isLoading}
                 />
               </Grid>
             </Grid>
