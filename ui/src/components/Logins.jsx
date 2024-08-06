@@ -28,14 +28,19 @@ function Logins() {
   const mutation = useMutation({
     mutationFn: async (credentials) => {
       setLoading(true); // Set loading to true when mutation starts
-      const response = await loginUser(credentials.email, credentials.password);
-      setLoading(false); // Set loading to false when response is received
-      return response; // Assuming loginUser returns { token: ... }
+      try {
+        const response = await loginUser(credentials.email, credentials.password);
+        setLoading(false); // Set loading to false when response is received
+        return response; // Assuming loginUser returns { token: ... }
+      } catch (error) {
+        setLoading(false); // Ensure loading is false if error occurs
+        throw error;
+      }
     },
     onSuccess: (data) => {
       sessionStorage.setItem("token", data.token);
       alert("Logged in successfully");
-      navigate("/myblogs");
+      navigate("/myblogs"); // Ensure navigate is called after setting token
     },
     onError: (error) => {
       alert("Invalid credentials: " + (error.message || "An error occurred"));
