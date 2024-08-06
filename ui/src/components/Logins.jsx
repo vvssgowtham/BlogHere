@@ -23,6 +23,7 @@ const defaultTheme = createTheme();
 function Logins() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
+  
   const mutation = useMutation({
     mutationFn: async (credentials) => {
       const response = await loginUser(credentials.email, credentials.password);
@@ -99,6 +100,7 @@ function Logins() {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
+                disabled={mutation.isLoading}
               />
               <TextField
                 margin="normal"
@@ -113,6 +115,7 @@ function Logins() {
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
+                disabled={mutation.isLoading}
               />
               <Button
                 type="submit"
