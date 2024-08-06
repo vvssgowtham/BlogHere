@@ -23,6 +23,7 @@ const defaultTheme = createTheme();
 function SignUp() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -36,6 +37,9 @@ function SignUp() {
 
   const mutation = useMutation({
     mutationFn: () => registerUser(formData.email, formData.password),
+    onMutate: () => {
+      setLoading(true); // Set loading to true when mutation starts
+    },
     onSuccess: () => {
       alert("Signed Up Successfully");
       setFormData({ email: "", password: "" });
@@ -48,6 +52,9 @@ function SignUp() {
         alert("Registration failed");
       }
       setFormData({ email: "", password: "" });
+    },
+    onSettled: () => {
+      setLoading(false); // Set loading to false when mutation settles
     },
   });
 
@@ -109,7 +116,7 @@ function SignUp() {
                   type="email"
                   error={!!errors.email}
                   helperText={errors.email}
-                  disabled={mutation.isLoading}
+                  disabled={loading}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -127,7 +134,7 @@ function SignUp() {
                   }
                   error={!!errors.password}
                   helperText={errors.password}
-                  disabled={mutation.isLoading}
+                  disabled={loading}
                 />
               </Grid>
             </Grid>
@@ -136,9 +143,9 @@ function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              disabled={mutation.isLoading}
+              disabled={loading}
             >
-              {mutation.isLoading ? "Signing Up..." : "Sign Up"}
+              {loading ? "Signing Up..." : "Sign Up"}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
@@ -151,7 +158,7 @@ function SignUp() {
         </Box>
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={mutation.isLoading}
+          open={loading}
         >
           <CircularProgress color="inherit" />
         </Backdrop>
