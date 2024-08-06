@@ -27,7 +27,7 @@ function Logins() {
   const mutation = useMutation({
     mutationFn: async (credentials) => {
       const response = await loginUser(credentials.email, credentials.password);
-      return response; // Assuming loginUser returns { token: ... }
+      return response;
     },
     onSuccess: (data) => {
       sessionStorage.setItem("token", data.token);
