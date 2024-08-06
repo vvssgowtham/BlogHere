@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Avatar,
   Button,
@@ -21,6 +21,7 @@ const defaultTheme = createTheme();
 function Logins() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
+
   const mutation = useMutation({
     mutationFn: async (credentials) => {
       const response = await loginUser(credentials.email, credentials.password);
@@ -29,12 +30,18 @@ function Logins() {
     onSuccess: (data) => {
       sessionStorage.setItem("token", data.token);
       alert("Logged in successfully");
-      navigate("/myblogs");
     },
     onError: (error) => {
       alert("Invalid credentials: " + (error.message || "An error occurred"));
     },
   });
+
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      navigate("/myblogs");
+    }
+  }, [mutation.isSuccess, navigate]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     mutation.mutate(formData);
