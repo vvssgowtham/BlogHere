@@ -23,30 +23,19 @@ const defaultTheme = createTheme();
 function Logins() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false); // State to manage loading
 
   const mutation = useMutation({
     mutationFn: async (credentials) => {
-      setLoading(true); // Set loading to true when mutation starts
-      try {
-        const response = await loginUser(credentials.email, credentials.password);
-        setLoading(false); // Set loading to false when response is received
-        return response; // Assuming loginUser returns { token: ... }
-      } catch (error) {
-        setLoading(false); // Ensure loading is false if error occurs
-        throw error;
-      }
+      const response = await loginUser(credentials.email, credentials.password);
+      return response; // Assuming loginUser returns { token: ... }
     },
     onSuccess: (data) => {
       sessionStorage.setItem("token", data.token);
       alert("Logged in successfully");
-      navigate("/myblogs"); // Ensure navigate is called after setting token
+      navigate("/myblogs");
     },
     onError: (error) => {
       alert("Invalid credentials: " + (error.message || "An error occurred"));
-    },
-    onSettled: () => {
-      setLoading(false); // Ensure loading is false if mutation settles
     },
   });
 
@@ -111,7 +100,7 @@ function Logins() {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                disabled={loading}
+                disabled={mutation.isLoading}
               />
               <TextField
                 margin="normal"
@@ -126,16 +115,16 @@ function Logins() {
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
-                disabled={loading}
+                disabled={mutation.isLoading}
               />
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                disabled={loading}
+                disabled={mutation.isLoading}
               >
-                {loading ? "Signing In..." : "Sign In"}
+                {mutation.isLoading ? "Signing In..." : "Sign In"}
               </Button>
               <Grid container>
                 <Grid item>
@@ -150,7 +139,7 @@ function Logins() {
       </Grid>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
+        open={mutation.isLoading}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
