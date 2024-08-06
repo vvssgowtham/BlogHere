@@ -17,17 +17,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../fetchers/fetcherUser";
-
 const defaultTheme = createTheme();
-
 function Logins() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
-
   const mutation = useMutation({
     mutationFn: async (credentials) => {
       const response = await loginUser(credentials.email, credentials.password);
-      return response;
+      return response; // Assuming loginUser returns { token: ... }
     },
     onSuccess: (data) => {
       sessionStorage.setItem("token", data.token);
@@ -38,12 +35,10 @@ function Logins() {
       alert("Invalid credentials: " + (error.message || "An error occurred"));
     },
   });
-
   const handleSubmit = (event) => {
     event.preventDefault();
     mutation.mutate(formData);
   };
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -100,7 +95,6 @@ function Logins() {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                disabled={mutation.isLoading}
               />
               <TextField
                 margin="normal"
@@ -115,7 +109,6 @@ function Logins() {
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
-                disabled={mutation.isLoading}
               />
               <Button
                 type="submit"
