@@ -17,9 +17,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../fetchers/fetcherUser";
-
 const defaultTheme = createTheme();
-
 function Logins() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -37,12 +35,10 @@ function Logins() {
       alert("Invalid credentials: " + (error.message || "An error occurred"));
     },
   });
-
   const handleSubmit = (event) => {
     event.preventDefault();
     mutation.mutate(formData);
   };
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
