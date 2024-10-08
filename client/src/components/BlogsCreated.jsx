@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { imageDb } from "./config";
+import { imageDb } from "./config"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import TextField from "@mui/material/TextField";
