@@ -67,20 +67,20 @@ To set up and run this project locally, follow these steps:
 4. Start the backend server:
    npm start
 
-Frontend Setup
+### Frontend Setup
 1. Open a new terminal and navigate to the frontend directory: cd client and then npm install
 
 2. Start the frontend development server: npm start
 
 3. The application should now be running at `http://localhost:3000`.
 
-Usage
+### Usage
 
 - Visit `http://localhost:3000` in your browser.
 - Sign up or log in with your credentials.
 - Create, Read, or delete blog posts.
 
-Contributing
+### Contributing
 
 Contributions are welcome! If you'd like to improve this project, please follow these steps:
 1. Fork the repository.
@@ -89,7 +89,7 @@ Contributions are welcome! If you'd like to improve this project, please follow 
 4. Push to the branch (`git push origin feature-branch`).
 5. Open a pull request.
 
-Contact
+### Contact
 
 For any questions or feedback, please reach out to:
 
