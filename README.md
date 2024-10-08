@@ -93,4 +93,4 @@ Contributions are welcome! If you'd like to improve this project, please follow 
 
 For any questions or feedback, please reach out to:
 
--VVSS Gowtham - [Your Email](mailto:gowthamvvss@gmail.com)
+-VVSS Gowtham - [gowthamvvss@gmail.com](mailto:gowthamvvss@gmail.com)
