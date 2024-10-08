@@ -4,13 +4,13 @@ BlogHere is a dynamic and feature-rich blogging platform built using modern web 
 
 Table of Contents
 
-- [About the Project](#about-the-project)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [Contact](#contact)
+## About the Project
+## Features
+## Technologies Used
+## Installation
+## Usage
+## Contributing
+## Contact
 
 About the Project
 
