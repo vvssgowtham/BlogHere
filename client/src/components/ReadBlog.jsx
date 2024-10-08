@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Navbar from "./Navbar";
 import parse from "html-react-parser";
 import { useQuery } from "@tanstack/react-query";
@@ -7,7 +6,6 @@ import { fetchBlog } from "../fetchers/fetcherBlogs";
 
 const ReadBlog = () => {
   const { id } = useParams(); // Extract the blogID from params
-  const navigate = useNavigate();
   const token = sessionStorage.getItem("token"); // Retrieve the token
 
   const {
@@ -16,7 +14,7 @@ const ReadBlog = () => {
     error,
   } = useQuery({
     queryKey: ["blog", id],
-    queryFn: () => fetchBlog(id, token),
+    queryFn: () => fetchBlog(id),
     enabled: !!token, // Only run the query if the token exists
   });
 

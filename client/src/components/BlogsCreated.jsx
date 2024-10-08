@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { imageDb } from "./config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -53,7 +53,7 @@ function BlogsCreated() {
         queryClient.invalidateQueries({ queryKey: ["myblogs", token] });
       }
       alert("Blog created successfully");
-      setformData({ title: "", description: "", blogcontent: "" });
+      setformData({ imageURL: "", title: "", description: "", blogcontent: "" });
       setImg(null);
       fileInput.current.value = "";
       setLoading(false);
@@ -112,7 +112,7 @@ function BlogsCreated() {
                 onChange={(e) =>
                   setformData({ ...formData, title: e.target.value })
                 }
-                className="w-full" // Set width to 100% on all screen sizes
+                // className="w-full" // Set width to 100% on all screen sizes
               />
             </div>
             <div className="w-full md:w-1/2 px-3 mb-4">
@@ -127,6 +127,7 @@ function BlogsCreated() {
                   setformData({ ...formData, description: e.target.value })
                 }
                 className="w-full" // Set width to 100% on all screen sizes
+                inputProps={{ maxLength: 100 }}
               />
             </div>
             <div className="w-full mb-4">
