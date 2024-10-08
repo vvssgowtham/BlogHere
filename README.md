@@ -1,57 +1,58 @@
-BlogHere
+# BlogHere
 
 BlogHere is a dynamic and feature-rich blogging platform built using modern web technologies. The project leverages a ReactJS frontend, NodeJS/ExpressJS backend, MongoDB database, and JWT for secure user authentication. It also employs React TanStack Query for efficient cache management to reduce API call times, with a user-friendly UI built using MUI (Material-UI) and Bootstrap.
 
-Table of Contents
+## Table of Contents
+
+- [About the Project](#about-the-project)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Contact](#contact)
 
 ## About the Project
+
+BlogHere is a full-stack web application designed to make it easy for users to create, read, and delete blogs. It provides a seamless experience with modern UI components and powerful backend functionality. The main focus of this project is to offer a smooth and responsive platform that ensures minimal API call delays using React TanStack Query, optimizing the overall performance.
+
 ## Features
+
+- **User Authentication**: Secure sign-up and login with JWT-based authentication.
+- **Create and Manage Blogs**: Simple and intuitive interface for creating and managing blog posts.
+- **Responsive Design**: Fully responsive UI using MUI and Bootstrap for a great experience on all devices.
+- **Cache Management**: React TanStack Query is used to reduce unnecessary API calls and speed up data fetching.
+- **Rich Text Editor**: Write blogs using a built-in rich text editor for easy formatting.
+
 ## Technologies Used
-## Installation
-## Usage
-## Contributing
-## Contact
 
-About the Project
-
-BlogHere is a full-stack web application designed to make it easy for users to create, read and delete blogs. It provides a seamless experience with modern UI components and powerful backend functionality. The main focus of this project is to offer a smooth and responsive platform that ensures minimal API call delays using React TanStack Query, optimizing the overall performance.
-
-Features
-
-- User Authentication: Secure sign-up and login with JWT-based authentication.
-- Create and Blogs: Simple and intuitive interface for creating and managing blog posts.
-- Responsive Design: Fully responsive UI using MUI and Bootstrap for a great experience on all devices.
-- Cache Management: React TanStack Query is used to reduce unnecessary API calls and speed up data fetching.
-- Rich Text Editor: Write blogs using a built-in rich text editor for easy formatting.
-
-Technologies Used
-
-- Frontend: 
+- **Frontend**: 
   - ReactJS
   - MUI (Material-UI)
   - Bootstrap
   - React TanStack Query
 
-- Backend:
+- **Backend**:
   - NodeJS
   - ExpressJS
 
-- Database:
+- **Database**:
   - MongoDB
 
-- Authentication:
+- **Authentication**:
   - JSON Web Tokens (JWT)
 
-Installation
+## Installation
 
 To set up and run this project locally, follow these steps:
 
-Prerequisites
+### Prerequisites
 - Node.js and npm installed on your machine.
 - MongoDB server running locally or use a MongoDB Atlas connection string.
 
-Backend Setup
+### Backend Setup
 1. Clone the repository:
+   ```bash
    git clone https://github.com/vvssgowtham/BlogHere.git
    cd BlogHere
 
